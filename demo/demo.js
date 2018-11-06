@@ -1,16 +1,45 @@
 import Loock from '../src/index.js';
 
 const loock = new Loock();
+const context = loock.createContext(document.querySelector('.a11y-bar'));
 
-const callback = (loockContext) => {
-    document.querySelector('.active-context-red').innerHTML = `${loockContext.root.getAttribute('name')} context`;
+context.on('exit', () => {
+    const element = document.querySelector('.a11y-bar');
+    if (!element) {
+        return;
+    }
+    close(element);
+});
+
+let opened = false;
+
+document.querySelector('button[name="show"]').addEventListener('click', () => {
+    const element = document.querySelector('.a11y-bar');
+    if (!element) {
+        return;
+    }
+
+    if (opened) {
+        close(element);
+    } else {
+        open(element);
+    }
+});
+
+const open = (element) => {
+    opened = true;
+    element.classList.add('active');
+    context.enter();
 };
 
-const defaultContext = loock.createDefaultContext(document.body);
-const contextAlphabet = loock.createContext(document.querySelector('.alphabet'));
-const contextNumeric = loock.createContext(document.querySelector('.numeric'));
+const close = (element) => {
+    opened = false;
+    if (element.classList.contains('active')) {
+        element.classList.remove('active');
+    }
+    context.exit();
+};
 
-const contexts = [defaultContext, contextAlphabet, contextNumeric];
-contexts.forEach((context) => {
-    context.on('enter', () => callback(context));
-});
+
+
+loock.createDefaultContext(document.body);

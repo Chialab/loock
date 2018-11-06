@@ -39,7 +39,7 @@
     "lint": "rna lint",
     "unit": "rna unit",
     "start": "yarn install + rna build --watch",
-    "demo": "rna build demo/demo.js --output demo/index.js + serve demo --directory",
+    "demo": "rna build demo/demo.js --output demo/index.js --watch + serve demo --directory --watch",
     "prepublish": "yarn build"
   }
 }

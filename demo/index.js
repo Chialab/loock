@@ -2406,6 +2406,7 @@ function () {
  */
 
 var SELECTORS = ['button', 'a[href]', 'input', 'select', 'textarea', '[tabindex]'];
+var TIME_BETWEEN_KEYDOWNS = 150;
 /**
  * Loock context class.
  */
@@ -2431,6 +2432,7 @@ function (_Factory$Emitter) {
     _this.isActive = false;
     _this.currentElement = null;
     _this.ignore = _this.options.ignore;
+    _this.lastKeydownTime = Date.now();
 
     if (!element.hasAttribute('tabindex')) {
       element.setAttribute('tabindex', '0');
@@ -2598,6 +2600,15 @@ function () {
     this.contexts = [];
     this.actives = [];
     root.addEventListener('keydown', function (event) {
+      // prevent compulsively key holding down in all browsers.
+      if (Date.now() - _this2.lastKeydownTime < TIME_BETWEEN_KEYDOWNS) {
+        event.preventDefault();
+        event.stopPropagation();
+        return;
+      }
+
+      _this2.lastKeydownTime = Date.now();
+
       if (!_this2.activeContext) {
         return;
       }
@@ -2729,20 +2740,48 @@ function () {
 }();
 
 var loock = new Loock();
+var context$1 = loock.createContext(document.querySelector('.a11y-bar'));
+context$1.on('exit', function () {
+  var element = document.querySelector('.a11y-bar');
 
-var callback = function callback(loockContext) {
-  document.querySelector('.active-context-red').innerHTML = "".concat(loockContext.root.getAttribute('name'), " context");
+  if (!element) {
+    return;
+  }
+
+  close(element);
+});
+var opened = false;
+document.querySelector('button[name="show"]').addEventListener('click', function () {
+  var element = document.querySelector('.a11y-bar');
+
+  if (!element) {
+    return;
+  }
+
+  if (opened) {
+    close(element);
+  } else {
+    open(element);
+  }
+});
+
+var open = function open(element) {
+  opened = true;
+  element.classList.add('active');
+  context$1.enter();
 };
 
-var defaultContext = loock.createDefaultContext(document.body);
-var contextAlphabet = loock.createContext(document.querySelector('.alphabet'));
-var contextNumeric = loock.createContext(document.querySelector('.numeric'));
-var contexts = [defaultContext, contextAlphabet, contextNumeric];
-contexts.forEach(function (context) {
-  context.on('enter', function () {
-    return callback(context);
-  });
-});
+var close = function close(element) {
+  opened = false;
+
+  if (element.classList.contains('active')) {
+    element.classList.remove('active');
+  }
+
+  context$1.exit();
+};
+
+loock.createDefaultContext(document.body);
 
 })));
 //# sourceMappingURL=index.js.map

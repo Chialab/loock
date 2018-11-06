@@ -10,15 +10,17 @@ body {
     width: 634px;
     margin: 0 auto;
     padding-top: 2em;
+    font-family: sans-serif;
 }
 
 button {
-    width: 5em;
-    height: 5em;
-    color: #545454;
-    font-size: 2.5em;
+    width: 4em;
+    height: 4em;
+    font-size: 1em;
     background-color: #fffcb7;
     border: none;
+    border-radius: 4em;
+    cursor: pointer;
     -webkit-appearance: none;
 }
 
@@ -29,12 +31,24 @@ button {
     background-color: #545454;
 }
 
-.active-context {
-    padding: 0.2em;
-    font-family: sans-serif;
-    font-size: 2em;
+.content div {
+    padding: 0.5em;
+    line-height: 1.3em;
 }
 
-.active-context-red {
-    color: #fd6363;
+.a11y-bar {
+    display: none;
+}
+
+.active {
+    display: block;
+}
+
+.a11y-bar-content {
+    display: flex;
+    margin-bottom: 1.5em;
+}
+
+.icon {
+    font-size: 1.2em;
 }
