@@ -37,7 +37,6 @@ button {
     margin: 0 3.5px 0 3.5px;
 }
 
-
 .a11y-bar-content {
     display: flex;
     margin-bottom: 1.5em;
@@ -45,12 +44,12 @@ button {
 
 .icon {
     font-size: 1.2em;
-    font-weight: lighter;
 }
 
 .info {
     margin-bottom: 1.5rem;
     padding: 1em 1em 3em 1em;
+    font-weight: lighter;
     line-height: 1.3em;
     text-align: center;
     background-color: #e4e4e4;
