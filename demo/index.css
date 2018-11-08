@@ -1,3 +1,9 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+}
+
 *:focus {
     outline: 3px solid #fd6363;
 }
@@ -22,9 +28,9 @@ button {
     -webkit-appearance: none;
 }
 
-.text-content div {
+.text-content p {
     padding: 0.5em;
-    line-height: 1.3em;
+    line-height: 1.4em;
 }
 
 .a11y-bar {
