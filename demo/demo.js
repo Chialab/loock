@@ -40,6 +40,5 @@ const close = (element) => {
     context.exit();
 };
 
-
-
-loock.createDefaultContext(document.body);
+const content = document.querySelector('.content');
+loock.createDefaultContext(content);

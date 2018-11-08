@@ -2,15 +2,13 @@
     outline: 3px solid #fd6363;
 }
 
-* {
-    margin: 0.1em 0.1em 0.1em 0.1em;
+body {
+    font-family: sans-serif;
 }
 
-body {
+.content {
     width: 634px;
     margin: 0 auto;
-    padding-top: 2em;
-    font-family: sans-serif;
 }
 
 button {
@@ -24,25 +22,21 @@ button {
     -webkit-appearance: none;
 }
 
-.loock {
-    display: table;
-    margin-top: 1em;
-    padding: 0.2em;
-    background-color: #545454;
-}
-
-.content div {
+.text-content div {
     padding: 0.5em;
     line-height: 1.3em;
 }
 
 .a11y-bar {
     display: none;
+    margin: 0 3.5px 0 3.5px;
 }
 
 .active {
     display: block;
+    margin: 0 3.5px 0 3.5px;
 }
+
 
 .a11y-bar-content {
     display: flex;
@@ -51,4 +45,13 @@ button {
 
 .icon {
     font-size: 1.2em;
+    font-weight: lighter;
+}
+
+.info {
+    margin-bottom: 1.5rem;
+    padding: 1em 1em 3em 1em;
+    line-height: 1.3em;
+    text-align: center;
+    background-color: #e4e4e4;
 }

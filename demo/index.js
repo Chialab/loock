@@ -2781,7 +2781,8 @@ var close = function close(element) {
   context$1.exit();
 };
 
-loock.createDefaultContext(document.body);
+var content = document.querySelector('.content');
+loock.createDefaultContext(content);
 
 })));
 //# sourceMappingURL=index.js.map
