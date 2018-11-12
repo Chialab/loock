@@ -2741,14 +2741,58 @@ function () {
 
 var loock = new Loock();
 var context$1 = loock.createContext(document.querySelector('.a11y-bar'));
-context$1.on('exit', function () {
-  var element = document.querySelector('.a11y-bar');
+var MAX_FONT_SIZE = 24;
+var MIN_FONT_SIZE = 12;
+var textContent = document.querySelector('.text-content');
+var currentFontSize; // a11ybar listeners
 
-  if (!element) {
+document.querySelector('button[name="buttonChangeFont"]').addEventListener('click', function () {
+  var font = textContent.style.fontFamily;
+  var newFontFamily = font === 'sans-serif' ? 'Monospace' : 'sans-serif';
+  textContent.style.fontFamily = newFontFamily;
+});
+
+var handleButtonStates = function handleButtonStates() {
+  if (currentFontSize === MAX_FONT_SIZE) {
+    buttonZoomIn.setAttribute('disabled', true);
+    buttonZoomIn.classList.add('disabled');
+  } else {
+    buttonZoomIn.removeAttribute('disabled');
+    buttonZoomIn.classList.remove('disabled');
+  }
+
+  if (currentFontSize === MIN_FONT_SIZE) {
+    buttonZoomOut.setAttribute('disabled', true);
+    buttonZoomOut.classList.add('disabled');
+  } else {
+    buttonZoomOut.removeAttribute('disabled');
+    buttonZoomOut.classList.remove('disabled');
+  }
+};
+
+var buttonZoomIn = document.querySelector('button[name="buttonZoomIn"]');
+buttonZoomIn.addEventListener('click', function () {
+  currentFontSize = parseInt(window.getComputedStyle(textContent).fontSize);
+
+  if (currentFontSize === MAX_FONT_SIZE) {
     return;
   }
 
-  close(element);
+  textContent.style.fontSize = "".concat(++currentFontSize, "px");
+  currentFontSize = parseInt(window.getComputedStyle(textContent).fontSize);
+  handleButtonStates();
+});
+var buttonZoomOut = document.querySelector('button[name="buttonZoomOut"]');
+buttonZoomOut.addEventListener('click', function () {
+  currentFontSize = parseInt(window.getComputedStyle(textContent).fontSize);
+
+  if (currentFontSize === MIN_FONT_SIZE) {
+    return;
+  }
+
+  textContent.style.fontSize = "".concat(--currentFontSize, "px");
+  currentFontSize = parseInt(window.getComputedStyle(textContent).fontSize);
+  handleButtonStates();
 });
 var opened = false;
 document.querySelector('button[name="show"]').addEventListener('click', function () {
@@ -2763,6 +2807,16 @@ document.querySelector('button[name="show"]').addEventListener('click', function
   } else {
     open(element);
   }
+}); // context listeners
+
+context$1.on('exit', function () {
+  var element = document.querySelector('.a11y-bar');
+
+  if (!element) {
+    return;
+  }
+
+  close(element);
 });
 
 var open = function open(element) {

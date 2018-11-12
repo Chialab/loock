@@ -60,3 +60,7 @@ button {
     text-align: center;
     background-color: #e4e4e4;
 }
+
+.disabled {
+    opacity: 0.35;
+}
