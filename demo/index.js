@@ -2456,7 +2456,7 @@ function (_Factory$Emitter) {
     key: "findFocusableChildren",
     value: function findFocusableChildren() {
       var elements = _toConsumableArray(this.root.querySelectorAll(SELECTORS.map(function (selector) {
-        return "".concat(selector, ":not([tabindex=\"-1\"]):not([disabled]):not([aria-hidden])");
+        return "".concat(selector, ":not([tabindex=\"-1\"]):not([aria-hidden])");
       }).join(', ')));
 
       var ignore = this.ignore ? _toConsumableArray(this.root.querySelectorAll(this.ignore)) : [];
@@ -2754,7 +2754,7 @@ document.querySelector('button[name="buttonChangeFont"]').addEventListener('clic
 
 var handleButtonStates = function handleButtonStates() {
   if (currentFontSize === MAX_FONT_SIZE) {
-    buttonZoomIn.setAttribute('disabled', true);
+    buttonZoomIn.setAttribute('aria-disabled', true);
     buttonZoomIn.classList.add('disabled');
   } else {
     buttonZoomIn.removeAttribute('disabled');
@@ -2762,7 +2762,7 @@ var handleButtonStates = function handleButtonStates() {
   }
 
   if (currentFontSize === MIN_FONT_SIZE) {
-    buttonZoomOut.setAttribute('disabled', true);
+    buttonZoomOut.setAttribute('aria-disabled', true);
     buttonZoomOut.classList.add('disabled');
   } else {
     buttonZoomOut.removeAttribute('disabled');
@@ -2772,6 +2772,10 @@ var handleButtonStates = function handleButtonStates() {
 
 var buttonZoomIn = document.querySelector('button[name="buttonZoomIn"]');
 buttonZoomIn.addEventListener('click', function () {
+  if (isDisabled(buttonZoomIn)) {
+    return;
+  }
+
   currentFontSize = parseInt(window.getComputedStyle(textContent).fontSize);
 
   if (currentFontSize === MAX_FONT_SIZE) {
@@ -2784,6 +2788,10 @@ buttonZoomIn.addEventListener('click', function () {
 });
 var buttonZoomOut = document.querySelector('button[name="buttonZoomOut"]');
 buttonZoomOut.addEventListener('click', function () {
+  if (isDisabled(buttonZoomOut)) {
+    return;
+  }
+
   currentFontSize = parseInt(window.getComputedStyle(textContent).fontSize);
 
   if (currentFontSize === MIN_FONT_SIZE) {
@@ -2807,7 +2815,12 @@ document.querySelector('button[name="show"]').addEventListener('click', function
   } else {
     open(element);
   }
-}); // context listeners
+});
+
+var isDisabled = function isDisabled(button) {
+  return button.getAttribute('aria-disabled');
+}; // context listeners
+
 
 context$1.on('exit', function () {
   var element = document.querySelector('.a11y-bar');
@@ -2835,8 +2848,7 @@ var close = function close(element) {
   context$1.exit();
 };
 
-var content = document.querySelector('.content');
-loock.createDefaultContext(content);
+loock.createDefaultContext(document.body);
 
 })));
 //# sourceMappingURL=index.js.map
