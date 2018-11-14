@@ -12,7 +12,7 @@ let currentFontSize;
 document
     .querySelector('button[name="buttonChangeFont"]')
     .addEventListener('click', () => {
-        const font = textContent.style.fontFamily;
+        const font = window.getComputedStyle(textContent).fontFamily;
         const newFontFamily = font === 'sans-serif' ? 'Monospace' : 'sans-serif';
         textContent.style.fontFamily = newFontFamily;
     });
