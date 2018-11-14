@@ -43,7 +43,7 @@ class LoockContext extends Factory.Emitter {
      */
     findFocusableChildren() {
         const elements = [...this.root.querySelectorAll(
-            SELECTORS.map((selector) => `${selector}:not([tabindex="-1"]):not([disabled]):not([aria-hidden])`).join(', ')
+            SELECTORS.map((selector) => `${selector}:not([tabindex="-1"]):not([aria-hidden])`).join(', ')
         )];
         const ignore = this.ignore ? [...this.root.querySelectorAll(this.ignore)] : [];
 
